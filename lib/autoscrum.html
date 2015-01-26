@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+<head>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/jquery-main.css">
+<link rel="stylesheet" type="text/css" href="css/autoscrum.css">
+<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+<script src="js/load.js"></script>
+</head>
+<body>
+  <div class="loggedout">
+    <input type="button" class="connectLink btn btn-success btn-lg" value="Connect to Trello!">
+    <input type="button" class="disconnect btn btn-danger btn-lg" value="Log Out">
+    <div id="devel">
+      <p class="text-center"><mark>Please Note:</mark> Autoscrum is still under development and might
+        behave in unexpected ways.
+      </p>
+      <p class="text-center">To get started add your
+        <a href=https://trello.com/1/appKey/generate>Trello application
+          key</a> to autoscrum.config.json. <br>
+        For a general overview how to use Autoscrum have a look at the
+        <a href=https://github.com/openSUSE/autoscrum/blob/master/README.md>README</a>. <br>
+        If you encounter issues while using Autoscrum please report them on
+        the <a href=https://github.com/openSUSE/autoscrum/issues>issue page</a>.</p>
+    </div>
+  </div>
+
+  <div class="BoardPopup">
+    <h3>Select your workboard:</h3>
+  </div>
+  <div class="loggedin hidden">
+    <div id="header" class="page-header">
+      <div id="MyName">AutoScrum</div>
+      Logged in as <span id="fullName"></span>
+      <a class="toBoard btn btn-default" target="_blank">View Board</a>
+      <input type="button" class="disconnect btn btn-danger" value="Log Out">
+    </div>
+  </div>
+  <div class="finishedRefine hidden">
+    <div class="btn-group col-md-3">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span id="Wval">Waterline after</span> <span class="caret"></span>
+      </button>
+    <ul class="dropdown-menu wlinesbed" id="waterline" role="menu"></ul>
+    </div>
+    <div class="btn-group col-md-3">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span id="Sval">Seabed after</span> <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu wlinesbed" id="seabed" role="menu"></ul>
+    </div>
+    <div class="velocity col-md-2">
+    <span id="avgVel"></span>
+    </div>
+    <div class="points col-md-1">
+    <span id="totP"></span>
+    </div>
+    <div class="doneAll col-md-4">
+      <input type="button" class="doneFinal btn btn-success btn-lg" value="Save to board">
+    </div>
+  </div>
+  <div class="hidden cardLists container-fluid fill">
+    <div class="row">
+      <div class="mainList col-md-10">
+        <ul id="maintable" class="maintable connectedSortable"></ul>
+      </div>
+      <div class="prioritise hidden col-md-1">
+        <input type="button" class="prioNow btn btn-primary btn-lg" value="Fetch cards!">
+      </div>
+      <div class="finished hidden col-md-1">
+          <input type="button" class="done btn btn-primary btn-lg" value="Finished estimation!">
+      </div>
+    </div>
+    <div class="sorttables"><hr class="separator">
+      <div class="row sortrow">
+        <div class=" col-md-2 panel panel-default sorthead">
+          <div class="panel-body">1 Story Point</div>
+        </div>
+        <div class="col-md-10">
+          <ul id="sorttable1" class="connectedSortable"></ul>
+        </div>
+      </div><hr class="separator">
+      <div class="row sortrow">
+        <div class="col-md-2 panel panel-default sorthead">
+          <div class="panel-body">2 Story Points</div>
+        </div>
+        <div class="col-md-10">
+            <ul id="sorttable2" class="connectedSortable"></ul>
+        </div>
+      </div><hr class="separator">
+      <div class="row sortrow">
+        <div class="col-md-2 panel panel-default sorthead">
+          <div class="panel-body">3 Story Points</div>
+        </div>
+        <div class="col-md-10">
+          <ul id="sorttable3" class="connectedSortable"></ul>
+        </div>
+      </div><hr class="separator">
+      <div class="row sortrow">
+        <div class="col-md-2 panel panel-default sorthead">
+          <div class="panel-body">5 Story Points</div>
+        </div>
+        <div class="col-md-10">
+          <ul id="sorttable5" class="connectedSortable"></ul>
+        </div>
+      </div><hr class="separator">
+      <div class="row sortrow">
+        <div class="col-md-2 panel panel-default sorthead">
+          <div class="panel-body">8 Story Points</div>
+        </div>
+        <div class="col-md-10">
+          <ul id="sorttable8" class="connectedSortable"></ul>
+        </div>
+      </div>
+      </div>
+  </div>
+</body>
+</html>
