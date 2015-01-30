@@ -35,10 +35,6 @@ var logout = function() {
     LogInAppearence();
 };
 
-var Failed = function() {
-    location.reload()
-};
-
 var Authorized = function() {
     Trello.members.get("me", function(member) {
         $("#fullName").text(member.fullName);
@@ -66,6 +62,7 @@ var SetLists = function() {
         $.each(lists, function(ix, list) {
             if (list.name == MainList) {
                 MainListID = list.id
+                SetPriority();
             }
             if (list.name == TargetList) {
                 TargetListID = list.id;
@@ -114,12 +111,6 @@ var GetCardIdFromListItem = function(item) {
 };
 
 var GetCardsInList = function(ID) {
-    // First check if the list does exist
-    if (MainListID == 1) {
-        if (!alert("This board does not have a " + MainList + " list")) {
-            window.location.reload();
-        }
-    }
     // Cleaning the list before appending stuff
     $("#maintable").empty();
     Trello.get("lists/" + ID + "/cards", function(cards) {
@@ -127,7 +118,7 @@ var GetCardsInList = function(ID) {
         $.each(cards, function(ix, card) {
             if(CardCount != null && ix >= CardCount) { return false; }
             $("<a>")
-                .attr({href: card.url, target: "trello", cid: card.id, cname: card.name, cpos: ix+1, title: card.name})
+                .attr({href: card.url, target: "trello", cid: card.id, cname: card.name, title: card.name})
                 .addClass("card")
                 .text(card.name)
                 .appendTo("#mainput" + ix);
@@ -141,7 +132,7 @@ var GetCardsInList = function(ID) {
  * Estimation functions
  */
 var EnableSortable = function() {
-    $("#maintable, #sorttable1, #sorttable2, #sorttable3, #sorttable5, #sorttable8")
+    $(".connectedSortable")
         .sortable({
             connectWith: ".connectedSortable",
             start: function(event, ui) {
@@ -170,7 +161,7 @@ var EnableSortable = function() {
 };
 
 $(function() {
-    $("#maintable > li, #sorttable1 > li, #sorttable2 > li, #sorttable3 > li, #sorttable5 > li, #sorttable8 > li")
+    $(".connectedSortable > li")
         .live("hover", function() {
             hoverItem = $(this)
         });
@@ -183,7 +174,7 @@ $(document).keypress(function(e) {
         var targettable = "#sorttable" + String.fromCharCode(e.which);
     }
     // Move the first element in the Prio List when not hovering
-    if (! hoverItem) {
+    if ((! hoverItem) && $("#maintable li").length != 0) {
         hoverItem = $(".maintable li:first")
     }
 
@@ -220,8 +211,8 @@ var UpdateCardEstimation = function(cId, cName, value) {
     CardsSorted = true;
     value = value.replace(/[^0-9]/g, "");
     // Check if there's already an estimation
-    if (cName.match(/\([0-8]{0,1}\)/)) {
-        name = cName.replace(/\([0-8]{0,1}\)/, "(" + value + ")");
+    if (cName.match(/\([0-9]{0,2}\)/)) {
+        name = cName.replace(/\([0-9]{0,1}\)/, "(" + value + ")");
     } else {
         name = "(" + value + ") " + cName;
     }
@@ -253,7 +244,12 @@ var SetUpMainList = function(length) {
 };
 
 var SetPriority = function() {
-    CleanupLists();
+    // First check if the list does exist
+    if (MainListID == 1) {
+        if (!alert("This board does not have a " + MainList + " list")) {
+            window.location.reload();
+        }
+    }
     Trello.get("lists/" + MainListID + "/cards", function(cards) {
         SetUpMainList(cards.length);
         $.each(cards, function(ix, card) {
@@ -296,53 +292,36 @@ var CreateWaterline = function(_callback) {
 
 var MoveWaterline = function() {
     Trello.put("cards/" + WaterlineId + "/pos",
-               { value: ((CardPositions[Waterline]+CardPositions[Waterline-1])/2) },
+               { value: ((CardPositions[Waterline+1]+CardPositions[Waterline])/2) },
                function() {});
-}
-
-var CleanupLists = function() {
-    $("#sorttable1").empty();
-    $("#sorttable2").empty();
-    $("#sorttable3").empty();
-    $("#sorttable5").empty();
-    $("#sorttable8").empty();
 }
 
 // Only show estimated cards in the final list
 var RemoveNotEstimated = function(_callback) {
-    $(".finishedtable li:nth-of-type(n+" + CardCount + ")").css("display: none");
-    $(".wlinesbed li:nth-of-type(n+" + CardCount + ")").css("display: none");
+    $(".finishedtable li:nth-of-type(n+" + CardCount + ")").toggleClass("hidden", true);
     _callback();
 };
 
 var CreateDropDowns = function() {
-    $(".card").each(function(ix) {
-        // This is a workaround, fix it properly
-        if ($(this).attr("cname").match(/P[0-9]{1,4}/g)) {
-            $("#waterline").append(
-                $("<li>", {}).append(
-                    $("<a>")
-                        .attr({value: $(this).attr("cpos"), href: "#"})
-                         // Showing only the priority in the dropdown to avoid cluttering it
-                        .text($(this).attr("cname").match(/P[0-9]{1,4}/g)[0])
-                ));
-            $("#waterline li").sort(function(a, b){return ($(b).text()) < ($(a).text()) ? 1 : -1;}).appendTo("#waterline");
-
-            $("#seabed").append(
-                $("<li>", {}).append(
-                    $("<a>")
-                        .attr({value: $(this).attr("cid"), href: "#"})
-                        // Showing only the priority in the dropdown to avoid cluttering it
-                        .text($(this).attr("cname").match(/P[0-9]{1,4}/g)[0])
-                ));
-            $("#seabed li").sort(function(a, b){return ($(b).text()) < ($(a).text()) ? 1 : -1;}).appendTo("#seabed");
-        }});
+    for (i = 0; i < CardCount; i++) {
+        $("#waterline").append(
+            $("<li>", {}).append(
+                $("<a>")
+                    .attr({value: i, href: "#"})
+                    .text("P" + (parseInt(i)+1))
+            )
+        );
+        $("#seabed").append(
+            $("<li>", {}).append(
+                $("<a>")
+                    .attr({value: i, href: "#"})
+                    .text("P" + (parseInt(i)+1))
+            )
+        );
+    }
 };
 
 var ShowFinalList = function() {
-    // This needs to happen somewhere else as this position causes 2 bugs
-    // 1. DropDown includes all priorities not just from estimated cards (minor)
-    // 2. If the list contains an unprioritised card dropdown creation fails (workaround in CreateDropDowns)
     CardsSorted = false;
     CreateDropDowns();
     RemoveNotEstimated(function() {
@@ -354,19 +333,16 @@ var ShowFinalList = function() {
     }
 
     if (VelocityCard != null) {
-        $("#avgVel").text("Average velocity reached with card: " + VelocityCard);
-        console.log("Avg velocity is after " + VelocityCard);
+        $("#avgVel").text("Average velocity reached with " + VelocityCard);
     } else {
         $("#avgVel").text("Total story points are below average velocity");
     }
 
     $("#totP").text("Story points: " + Velocity);
-    console.log("Total story points are " + Velocity);
 
     FinalAppearence();
 
     CreateWaterline(function(card) {
-        console.log("Card " + card.name);
         WaterlineId = card.id;
     });
 };
@@ -383,7 +359,7 @@ var MoveFinishedCards = function() {
             if (card.id == Seabed) { return false; }
         });
     });
-    alert("Cards have been moved to the Sprint Backlog");
+    alert("Cards have been moved to the " + TargetList);
     window.open("http://www.trello.com/b/" + MainBoard, "_blank");
     window.focus();
 };
@@ -450,7 +426,7 @@ $(document).on("click", ".boardSelect", function() {
 // Button events for the estimation phase
 $(document).on("click", ".prioNow", function() {
     if (CardsSorted == true) {
-        alert("Estimation has begun. Priorization is not possible right now.");
+        alert("Estimation has begun. Prioritization is not possible right now.");
     } else {
         SetPriority();
     }
@@ -474,18 +450,24 @@ $(document).on("click", ".doneFinal", function() {
     }
 });
 
-// Dropdown menues
+// Dropdown menus
 $(document).on("click", "#waterline li a", function(){
-    $("#Wval").text($(this).text());
-    console.log($(this).text() + " with " + $(this).val())
+    $("#Wval").text(GetCardNameFromListItem($("#main" + $(this).val())));
+    $(".card").each(function(ix) {
+        $(this).removeClass("WLineHighlight");
+    });
+    $("#main" + $(this).val() + " div a").addClass("WLineHighlight");
     Waterline = $(this).val();
     MoveWaterline();
 });
 
 $(document).on("click", "#seabed li a", function(){
-    $("#Sval").text($(this).text());
-    console.log($(this).text() + " with " + $(this).val())
-    Seabed = $(this).val();
+    $("#Sval").text(GetCardNameFromListItem($("#main" + $(this).val())));
+    $(".card").each(function(ix) {
+        $(this).removeClass("SBedHighlight");
+    });
+    $("#main" + $(this).val() + " div a").addClass("SBedHighlight");
+    Seabed = GetCardIdFromListItem($("#main" + $(this).val()));
 });
 
 // Tooltips

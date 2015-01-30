@@ -14,14 +14,6 @@
     display: none;
 }
 
-.dispinline {
-    display: inline;
-}
-
-.dispblock {
-    display: block;
-}
-
 body, html {
     height: 100%;
 }
@@ -32,8 +24,8 @@ body, html {
 
 .loggedout {
     text-align: center;
-    font-size: 28px;
-    padding-top: 30px;
+    font-size: 2em;
+    padding-top: 1.8em;
 }
 
 #devel {
@@ -44,56 +36,53 @@ body, html {
     display: none;
     z-index: 2;
     position: fixed;
-    width:450px;
+    width: 30em;
     max-height: 75%;
     overflow: scroll;
     overflow-x: hidden;
     top: 20%;
     left: 50%;
-    margin-left: -250px;
+    margin-left: -18em;
     background: none repeat scroll 0 0 #FFFFFF;
-    border: 8px solid #ccc;
-    border-radius: 5px 5px 5px 5px;
-    font-family: Verdana, Geneva, sans-serif;
-    font-size: 14px;
+    border: 0.5em solid #ccc;
+    font-size: 1em;
     color: #000;
 }
 
 /*
  * Header
- */
+*/
 
 #MyName {
     float: left;
-    margin-left: 10px;
 }
 
 #header {
-    padding: 4px;
-    border-bottom: 1px solid #000;
-    margin-top: 0px;
+    padding: 0.2em;
+    border-bottom: 0.05em solid #000;
+    margin-top: 0;
     background-color: #070707;
     color: white;
-    margin-bottom: 10px;
+    margin-bottom: 0.4em;
 }
 
 .loggedin {
     text-align: center;
-    font-size: 24px;
+    font-size: 2em;
 }
 
 .toBoard {
     float: right;
-    margin-right: 20px;
+    margin-right: 1em;
 }
 
 /*
  * Buttons
- */
+*/
 
 .finishedRefine {
     float: left;
-    margin-bottom: 5px;
+    margin-bottom: 0.4em;
 }
 
 .btn {
@@ -101,12 +90,12 @@ body, html {
 }
 
 .doneAll {
-    margin-top: 2px;
+    margin-top: 0.1em;
 }
 
 .disconnect {
     float: right;
-    margin-right: 20px;
+    margin-right: 1em;
 }
 
 /*
@@ -116,40 +105,40 @@ body, html {
 .velocity {
     color: red;
     background-color: #ccc;
-    border: 2px solid #070707;
-    margin-right: 2px;
+    border: 0.1em solid #070707;
+    margin-right: 0.1em;
 }
 
 .points {
     color: blue;
     background-color: #ccc;
-    border: 2px solid #070707;
+    border: 0.1em solid #070707;
 }
 
 /*
  * Lists and list items
- */
+*/
 
 .sortrow {
-    margin-bottom: 15px;
+    margin-bottom: 1em;
 }
 
 
 .sorthead {
     background: #070707;
     color: white;
-    max-width: 200px;
-    max-height: 50px;
-    margin-bottom: 2px;
+    max-width: 15em;
+    max-height: 5em;
+    margin-bottom: 0.01em;
 }
 
 .separator {
-    border: solid #e6e6e6 1.5px;
+    border: solid #e6e6e6 0.1em;
 }
 
 .as-tooltip-styling {
-    font-size: 28px;
-    max-height: 200px;
+    font-size: 2.2em;
+    max-height: 15em;
     max-width: 80%;
 }
 
@@ -159,43 +148,43 @@ body, html {
 }
 
 .sorttables {
-    margin-top: 1px;
+    margin-top: 0.05em;
 }
 
 #sorttable1, #sorttable2, #sorttable3, #sorttable5, #sorttable8 {
     list-style-type: none;
-    height: 50px;
+    height: 3.1em;
 }
 
 #sorttable1 li, #sorttable2 li, #sorttable3 li, #sorttable5 li, #sorttable8 li {
-    margin: 0px auto;
-    padding: 0px;
+    margin: 0 auto;
+    padding: 0;
     font-size: 1.2em;
     width: 100%;
-    max-width: 200px;
-    height: 50px;
+    max-width: 13em;
+    height: 3.1em;
     float: left;
 }
 
 .maintable li {
-    margin: 0px auto;
-    padding: 0px;
+    margin: 0 auto;
+    padding: 0;
     font-size: 1.2em;
     width: 100%;
-    max-width: 200px;
-    height: 50px;
+    max-width: 13em;
+    height: 3.1em;
     float: left;
 }
 
 .maintable li:nth-of-type(n+7) {display:none}
 
 .finishedtable {
-    border: 1px solid #eee;
+    border: 0.05em solid #eee;
     list-style-type: none;
     width: 80%;
     height: 80%;
     margin: 0;
-    padding: 5px 0 0 0;
+    padding: 0.4em 0 0 0;
     -moz-column-count: 5;
     -moz-column-gap: 2%;
     -webkit-column-count: 5;
@@ -205,21 +194,31 @@ body, html {
 }
 
 .finishedtable li {
-    margin: 0px auto;
+    margin: 0 auto;
     display: list item;
-    padding: 0px;
+    padding: 0;
     font-size: 1.2em;
     width: 100%;
-    max-width: 200px;
-    height: 50px;
-    margin-bottom: 5px;
+    max-width: 13em;
+    height: 3.1em;
+    margin-bottom: 0.4em;
 }
 
 .card {
     display: inline-block;
-    padding: 2px;
+    padding: 0.1em;
     background-color: #e6e6e6;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-height: 50px;
+    max-height: 3.1em;
+}
+
+.WLineHighlight {
+    background-color: LightBlue;
+    font-weight: bold;
+}
+
+.SBedHighlight {
+    background-color: LightCoral;
+    font-weight: bold;
 }
