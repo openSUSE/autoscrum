@@ -179,7 +179,7 @@ $(document).keypress(function(e) {
         var targettable = "#sorttable" + String.fromCharCode(e.which);
     }
     // Move the first element in the Prio List when not hovering
-    if (! hoverItem) {
+    if ((! hoverItem) && $("#maintable li").length != 0) {
         hoverItem = $(".maintable li:first")
     }
 
