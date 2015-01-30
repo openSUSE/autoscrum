@@ -35,10 +35,6 @@ var logout = function() {
     LogInAppearence();
 };
 
-var Failed = function() {
-    location.reload()
-};
-
 var Authorized = function() {
     Trello.members.get("me", function(member) {
         $("#fullName").text(member.fullName);
@@ -253,7 +249,6 @@ var SetUpMainList = function(length) {
 };
 
 var SetPriority = function() {
-    CleanupLists();
     Trello.get("lists/" + MainListID + "/cards", function(cards) {
         SetUpMainList(cards.length);
         $.each(cards, function(ix, card) {
@@ -300,18 +295,10 @@ var MoveWaterline = function() {
                function() {});
 }
 
-var CleanupLists = function() {
-    $("#sorttable1").empty();
-    $("#sorttable2").empty();
-    $("#sorttable3").empty();
-    $("#sorttable5").empty();
-    $("#sorttable8").empty();
-}
-
 // Only show estimated cards in the final list
 var RemoveNotEstimated = function(_callback) {
-    $(".finishedtable li:nth-of-type(n+" + CardCount + ")").css("display: none");
-    $(".wlinesbed li:nth-of-type(n+" + CardCount + ")").css("display: none");
+    $(".finishedtable li:nth-of-type(n+" + CardCount + ")").toggleClass("hidden", true);
+    $(".wlinesbed li:nth-of-type(n+" + CardCount + ")").toggleClass("hidden", true);
     _callback();
 };
 
@@ -354,19 +341,16 @@ var ShowFinalList = function() {
     }
 
     if (VelocityCard != null) {
-        $("#avgVel").text("Average velocity reached with card: " + VelocityCard);
-        console.log("Avg velocity is after " + VelocityCard);
+        $("#avgVel").text("Average velocity reached with " + VelocityCard);
     } else {
         $("#avgVel").text("Total story points are below average velocity");
     }
 
     $("#totP").text("Story points: " + Velocity);
-    console.log("Total story points are " + Velocity);
 
     FinalAppearence();
 
     CreateWaterline(function(card) {
-        console.log("Card " + card.name);
         WaterlineId = card.id;
     });
 };

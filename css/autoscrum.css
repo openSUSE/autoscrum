@@ -14,14 +14,6 @@
     display: none;
 }
 
-.dispinline {
-    display: inline;
-}
-
-.dispblock {
-    display: block;
-}
-
 body, html {
     height: 100%;
 }
@@ -53,25 +45,22 @@ body, html {
     margin-left: -18em;
     background: none repeat scroll 0 0 #FFFFFF;
     border: 0.5em solid #ccc;
-    border-radius: 5px 5px 5px 5px;
-    font-family: Verdana, Geneva, sans-serif;
     font-size: 1em;
     color: #000;
 }
 
 /*
  * Header
- */
+*/
 
 #MyName {
     float: left;
-    margin-left: 10px;
 }
 
 #header {
-    margin-top: 0px;
     padding: 0.2em;
     border-bottom: 0.05em solid #000;
+    margin-top: 0;
     background-color: #070707;
     color: white;
     margin-bottom: 0.4em;
@@ -89,7 +78,7 @@ body, html {
 
 /*
  * Buttons
- */
+*/
 
 .finishedRefine {
     float: left;
@@ -128,7 +117,7 @@ body, html {
 
 /*
  * Lists and list items
- */
+*/
 
 .sortrow {
     margin-bottom: 1em;
@@ -168,8 +157,8 @@ body, html {
 }
 
 #sorttable1 li, #sorttable2 li, #sorttable3 li, #sorttable5 li, #sorttable8 li {
-    margin: 0px auto;
-    padding: 0px;
+    margin: 0 auto;
+    padding: 0;
     font-size: 1.2em;
     width: 100%;
     max-width: 13em;
@@ -178,8 +167,8 @@ body, html {
 }
 
 .maintable li {
-    margin: 0px auto;
-    padding: 0px;
+    margin: 0 auto;
+    padding: 0;
     font-size: 1.2em;
     width: 100%;
     max-width: 13em;
@@ -205,9 +194,9 @@ body, html {
 }
 
 .finishedtable li {
-    margin: 0px auto;
+    margin: 0 auto;
     display: list item;
-    padding: 0px;
+    padding: 0;
     font-size: 1.2em;
     width: 100%;
     max-width: 13em;
