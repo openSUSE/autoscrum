@@ -62,6 +62,7 @@ var SetLists = function() {
         $.each(lists, function(ix, list) {
             if (list.name == MainList) {
                 MainListID = list.id
+                SetPriority();
             }
             if (list.name == TargetList) {
                 TargetListID = list.id;
@@ -110,12 +111,6 @@ var GetCardIdFromListItem = function(item) {
 };
 
 var GetCardsInList = function(ID) {
-    // First check if the list does exist
-    if (MainListID == 1) {
-        if (!alert("This board does not have a " + MainList + " list")) {
-            window.location.reload();
-        }
-    }
     // Cleaning the list before appending stuff
     $("#maintable").empty();
     Trello.get("lists/" + ID + "/cards", function(cards) {
@@ -249,6 +244,12 @@ var SetUpMainList = function(length) {
 };
 
 var SetPriority = function() {
+    // First check if the list does exist
+    if (MainListID == 1) {
+        if (!alert("This board does not have a " + MainList + " list")) {
+            window.location.reload();
+        }
+    }
     Trello.get("lists/" + MainListID + "/cards", function(cards) {
         SetUpMainList(cards.length);
         $.each(cards, function(ix, card) {
