@@ -359,7 +359,7 @@ var MoveFinishedCards = function() {
             if (card.id == Seabed) { return false; }
         });
     });
-    alert("Cards have been moved to the Sprint Backlog");
+    alert("Cards have been moved to the " + TargetList);
     window.open("http://www.trello.com/b/" + MainBoard, "_blank");
     window.focus();
 };
@@ -426,7 +426,7 @@ $(document).on("click", ".boardSelect", function() {
 // Button events for the estimation phase
 $(document).on("click", ".prioNow", function() {
     if (CardsSorted == true) {
-        alert("Estimation has begun. Priorization is not possible right now.");
+        alert("Estimation has begun. Prioritization is not possible right now.");
     } else {
         SetPriority();
     }
@@ -450,7 +450,7 @@ $(document).on("click", ".doneFinal", function() {
     }
 });
 
-// Dropdown menues
+// Dropdown menus
 $(document).on("click", "#waterline li a", function(){
     $("#Wval").text(GetCardNameFromListItem($("#main" + $(this).val())));
     $(".card").each(function(ix) {

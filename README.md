@@ -3,6 +3,9 @@
 `AutoScrum` is a webtool designed to automate repetetive tasks involved in
 Scrum meetings, like setting card priorities, adding story points and moving
 the cards from the backlog.
+To try `AutoScrum` right now grab your [Trello API key](https://trello.com/1/appKey/generate)
+and visit our [github pages](http://opensuse.github.io/autoscrum) (Might not
+contain the latest code).
 
 ## Contents
 
