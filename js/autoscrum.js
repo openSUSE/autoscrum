@@ -137,7 +137,7 @@ var GetCardsInList = function(ID) {
  * Estimation functions
  */
 var EnableSortable = function() {
-    $("#maintable, #sorttable1, #sorttable2, #sorttable3, #sorttable5, #sorttable8")
+    $(".connectedSortable")
         .sortable({
             connectWith: ".connectedSortable",
             start: function(event, ui) {
@@ -166,7 +166,7 @@ var EnableSortable = function() {
 };
 
 $(function() {
-    $("#maintable > li, #sorttable1 > li, #sorttable2 > li, #sorttable3 > li, #sorttable5 > li, #sorttable8 > li")
+    $(".connectedSortable > li")
         .live("hover", function() {
             hoverItem = $(this)
         });
@@ -216,8 +216,8 @@ var UpdateCardEstimation = function(cId, cName, value) {
     CardsSorted = true;
     value = value.replace(/[^0-9]/g, "");
     // Check if there's already an estimation
-    if (cName.match(/\([0-8]{0,1}\)/)) {
-        name = cName.replace(/\([0-8]{0,1}\)/, "(" + value + ")");
+    if (cName.match(/\([0-9]{0,2}\)/)) {
+        name = cName.replace(/\([0-9]{0,1}\)/, "(" + value + ")");
     } else {
         name = "(" + value + ") " + cName;
     }
