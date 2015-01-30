@@ -123,7 +123,7 @@ var GetCardsInList = function(ID) {
         $.each(cards, function(ix, card) {
             if(CardCount != null && ix >= CardCount) { return false; }
             $("<a>")
-                .attr({href: card.url, target: "trello", cid: card.id, cname: card.name, cpos: ix+1, title: card.name})
+                .attr({href: card.url, target: "trello", cid: card.id, cname: card.name, title: card.name})
                 .addClass("card")
                 .text(card.name)
                 .appendTo("#mainput" + ix);
@@ -291,45 +291,36 @@ var CreateWaterline = function(_callback) {
 
 var MoveWaterline = function() {
     Trello.put("cards/" + WaterlineId + "/pos",
-               { value: ((CardPositions[Waterline]+CardPositions[Waterline-1])/2) },
+               { value: ((CardPositions[Waterline+1]+CardPositions[Waterline])/2) },
                function() {});
 }
 
 // Only show estimated cards in the final list
 var RemoveNotEstimated = function(_callback) {
     $(".finishedtable li:nth-of-type(n+" + CardCount + ")").toggleClass("hidden", true);
-    $(".wlinesbed li:nth-of-type(n+" + CardCount + ")").toggleClass("hidden", true);
     _callback();
 };
 
 var CreateDropDowns = function() {
-    $(".card").each(function(ix) {
-        // This is a workaround, fix it properly
-        if ($(this).attr("cname").match(/P[0-9]{1,4}/g)) {
-            $("#waterline").append(
-                $("<li>", {}).append(
-                    $("<a>")
-                        .attr({value: $(this).attr("cpos"), href: "#"})
-                         // Showing only the priority in the dropdown to avoid cluttering it
-                        .text($(this).attr("cname").match(/P[0-9]{1,4}/g)[0])
-                ));
-            $("#waterline li").sort(function(a, b){return ($(b).text()) < ($(a).text()) ? 1 : -1;}).appendTo("#waterline");
-
-            $("#seabed").append(
-                $("<li>", {}).append(
-                    $("<a>")
-                        .attr({value: $(this).attr("cid"), href: "#"})
-                        // Showing only the priority in the dropdown to avoid cluttering it
-                        .text($(this).attr("cname").match(/P[0-9]{1,4}/g)[0])
-                ));
-            $("#seabed li").sort(function(a, b){return ($(b).text()) < ($(a).text()) ? 1 : -1;}).appendTo("#seabed");
-        }});
+    for (i = 0; i < CardCount; i++) {
+        $("#waterline").append(
+            $("<li>", {}).append(
+                $("<a>")
+                    .attr({value: i, href: "#"})
+                    .text("P" + (parseInt(i)+1))
+            )
+        );
+        $("#seabed").append(
+            $("<li>", {}).append(
+                $("<a>")
+                    .attr({value: i, href: "#"})
+                    .text("P" + (parseInt(i)+1))
+            )
+        );
+    }
 };
 
 var ShowFinalList = function() {
-    // This needs to happen somewhere else as this position causes 2 bugs
-    // 1. DropDown includes all priorities not just from estimated cards (minor)
-    // 2. If the list contains an unprioritised card dropdown creation fails (workaround in CreateDropDowns)
     CardsSorted = false;
     CreateDropDowns();
     RemoveNotEstimated(function() {
@@ -460,16 +451,14 @@ $(document).on("click", ".doneFinal", function() {
 
 // Dropdown menues
 $(document).on("click", "#waterline li a", function(){
-    $("#Wval").text($(this).text());
-    console.log($(this).text() + " with " + $(this).val())
+    $("#Wval").text(GetCardNameFromListItem($("#main" + $(this).val())));
     Waterline = $(this).val();
     MoveWaterline();
 });
 
 $(document).on("click", "#seabed li a", function(){
-    $("#Sval").text($(this).text());
-    console.log($(this).text() + " with " + $(this).val())
-    Seabed = $(this).val();
+    $("#Sval").text(GetCardNameFromListItem($("#main" + $(this).val())));
+    Seabed = GetCardIdFromListItem($("#main" + $(this).val()));
 });
 
 // Tooltips
