@@ -212,3 +212,13 @@ body, html {
     text-overflow: ellipsis;
     max-height: 3.1em;
 }
+
+.WLineHighlight {
+    background-color: LightBlue;
+    font-weight: bold;
+}
+
+.SBedHighlight {
+    background-color: LightCoral;
+    font-weight: bold;
+}

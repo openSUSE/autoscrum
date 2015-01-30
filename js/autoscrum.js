@@ -452,12 +452,20 @@ $(document).on("click", ".doneFinal", function() {
 // Dropdown menues
 $(document).on("click", "#waterline li a", function(){
     $("#Wval").text(GetCardNameFromListItem($("#main" + $(this).val())));
+    $(".card").each(function(ix) {
+        $(this).removeClass("WLineHighlight");
+    });
+    $("#main" + $(this).val() + " div a").addClass("WLineHighlight");
     Waterline = $(this).val();
     MoveWaterline();
 });
 
 $(document).on("click", "#seabed li a", function(){
     $("#Sval").text(GetCardNameFromListItem($("#main" + $(this).val())));
+    $(".card").each(function(ix) {
+        $(this).removeClass("SBedHighlight");
+    });
+    $("#main" + $(this).val() + " div a").addClass("SBedHighlight");
     Seabed = GetCardIdFromListItem($("#main" + $(this).val()));
 });
 
