@@ -32,7 +32,7 @@ body, html {
 
 .loggedout {
     text-align: center;
-    font-size: 28px;
+    font-size: 2em;
     padding-top: 30px;
 }
 
@@ -55,7 +55,7 @@ body, html {
     border: 8px solid #ccc;
     border-radius: 5px 5px 5px 5px;
     font-family: Verdana, Geneva, sans-serif;
-    font-size: 14px;
+    font-size: 1em;
     color: #000;
 }
 
@@ -79,7 +79,7 @@ body, html {
 
 .loggedin {
     text-align: center;
-    font-size: 24px;
+    font-size: 2em;
 }
 
 .toBoard {
@@ -148,7 +148,7 @@ body, html {
 }
 
 .as-tooltip-styling {
-    font-size: 28px;
+    font-size: 2.2em;
     max-height: 200px;
     max-width: 80%;
 }
