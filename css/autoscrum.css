@@ -151,12 +151,12 @@ body, html {
     margin-top: 0.05em;
 }
 
-#sorttable1, #sorttable2, #sorttable3, #sorttable5, #sorttable8 {
+#sorttable1, #sorttable2, #sorttable3, #sorttable4, #sorttable5, #sorttable6, #sorttable7, #sorttable8 {
     list-style-type: none;
     height: 3.1em;
 }
 
-#sorttable1 li, #sorttable2 li, #sorttable3 li, #sorttable5 li, #sorttable8 li {
+#sorttable1 li, #sorttable2 li, #sorttable3 li, #sorttable4 li, #sorttable5 li, #sorttable6 li, #sorttable7 li, #sorttable8 li {
     margin: 0 auto;
     padding: 0;
     font-size: 1.2em;
