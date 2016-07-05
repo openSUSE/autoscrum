@@ -1,8 +1,6 @@
 {
     "trello": {
-        "key": "[Your Trello API key here]",
-        "mainlist": "Backlog",
-        "targetlist": "Sprint Backlog"
+        "key": "[Your Trello API key here]"
     }
 
 }
