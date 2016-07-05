@@ -13,6 +13,7 @@ var MainListID = "1";
 var TargetList = "Sprint Backlog";
 var TargetListID = "1";
 var AvgVelocity = 25;
+var WaterlineText = "~~~~Waterline~~~~";
 
 var CardPositions = [];
 var CardCount = null;
@@ -286,7 +287,7 @@ var SetPriority = function() {
 */
 var CreateWaterline = function(_callback) {
     Trello.post("cards",
-                { name: "~~~~Waterline~~~~", idList: MainListID })
+                { name: WaterlineText, idList: MainListID })
         .done(function(card) { _callback(card); });
 };
 
