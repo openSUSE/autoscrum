@@ -53,7 +53,7 @@ var Authorized = function() {
 };
 
 /*
- * Initalization
+ * Initialization
  */
 var SetLists = function() {
     LogInAppearance();
