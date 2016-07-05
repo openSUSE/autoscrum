@@ -255,6 +255,7 @@ var SetPriority = function() {
         SetUpMainList(cards.length);
         $.each(cards, function(ix, card) {
             if(CardCount != null && ix >= CardCount) { return false; }
+            if (card.name === WaterlineText) { return true; }
             count = ix+1
             // Check if there's already a priority
             if (card.name.match(/P[0-9]{1,4}:/)) {
