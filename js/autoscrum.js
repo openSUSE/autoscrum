@@ -32,7 +32,7 @@ var VelocityCard = null;
 */
 var logout = function() {
     Trello.deauthorize();
-    LogInAppearence();
+    LogInAppearance();
 };
 
 var Authorized = function() {
@@ -56,7 +56,7 @@ var Authorized = function() {
  * Initalization
  */
 var SetLists = function() {
-    LogInAppearence();
+    LogInAppearance();
     // Get the ID for the list in which we'll prio
     Trello.get("boards/" + MainBoard + "/lists", function(lists) {
         $.each(lists, function(ix, list) {
@@ -340,7 +340,7 @@ var ShowFinalList = function() {
 
     $("#totP").text("Story points: " + Velocity);
 
-    FinalAppearence();
+    FinalAppearance();
 
     CreateWaterline(function(card) {
         WaterlineId = card.id;
@@ -365,12 +365,12 @@ var MoveFinishedCards = function() {
 };
 
 /*
- * Functions to change page appearence
+ * Functions to change page appearance
  */
 
-var LogInAppearence = function() {
+var LogInAppearance = function() {
     var isLoggedIn = Trello.authorized();
-    // Change appearence when logged in
+    // Change appearance when logged in
     $(".loggedin").toggleClass("hidden", !isLoggedIn);
     $(".loggedout").toggleClass("hidden", isLoggedIn);
     $(".cardLists").toggleClass("hidden", !isLoggedIn);
@@ -379,7 +379,7 @@ var LogInAppearence = function() {
     $(".finished").toggleClass("hidden", !isLoggedIn);
 };
 
-var FinalAppearence = function() {
+var FinalAppearance = function() {
     $(".sorttables").toggleClass("hidden", true);
     $(".finished").toggleClass("hidden", true);
     $(".finishedRefine").toggleClass("hidden", false);
